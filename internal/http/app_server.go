@@ -27,12 +27,12 @@ func (s *AppServer) Start() error {
 }
 
 func (s *AppServer) registerPokemonCRUDRoutes() {
-	pokemonCRUDGroup := s.router.Group("/api/pokemons")
-	{
-		pokemonCRUDGroup.Post("", CreatePokemonHandler(s.pkmCli))
-		pokemonCRUDGroup.Get("/:id", GetPokemonHandler(s.pkmCli))
-		pokemonCRUDGroup.Put("/:id", UpdatePokemonHandler(s.pkmCli))
-		pokemonCRUDGroup.Delete("/:id", DeletePokemonHandler(s.pkmCli))
-		pokemonCRUDGroup.Get("", ListPokemonsHandler(s.pkmCli))
-	}
+	routes := s.router.Group("/api/pokemons")
+
+	routes.Post("", CreatePokemonHandler(s.pkmCli))
+	routes.Get("/:id", GetPokemonHandler(s.pkmCli))
+	routes.Put("/:id", UpdatePokemonHandler(s.pkmCli))
+	routes.Delete("/:id", DeletePokemonHandler(s.pkmCli))
+	routes.Get("", ListPokemonsHandler(s.pkmCli))
+
 }
