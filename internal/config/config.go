@@ -1,14 +1,21 @@
 package config
 
+import (
+	"log"
+
+	"github.com/kelseyhightower/envconfig"
+)
+
 type Config struct {
-	ServerPort    string
-	PokemonApiURL string
+	ServerPort    string `required:"true" split_words:"true"`
+	PokemonApiURL string `required:"true" split_words:"true"`
 }
 
 func LoadConfig() *Config {
-	// TODO: Load configuration from environment variables or a config file
-	return &Config{
-		ServerPort:    "8080",
-		PokemonApiURL: "http://example.com/api/pokemons/",
+	var cfg Config
+	err := envconfig.Process("pokemon-lab-bff", &cfg)
+	if err != nil {
+		log.Fatal(err.Error())
 	}
+	return &cfg
 }
